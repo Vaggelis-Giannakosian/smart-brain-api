@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+
+  #Backend API
+  smart-brain-api:
+    container_name: backend
+    build: ./
+    command: npm start
+    working_dir: /app
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_HOST: postgres
+      CLARIFAI_API_KEY: "${CLARIFAI_API_KEY}"
+    links:
+      - postgres
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/srv/app/
+
+  # Postgres
+  postgres:
+    restart: always
+    image: postgres
+    ports:
+    - "5433:5432"
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_HOST: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+
+volumes:
+  pgdata:
