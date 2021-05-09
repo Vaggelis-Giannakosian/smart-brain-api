@@ -66,7 +66,7 @@ const getAuthTokenId = (req, res) => {
             return res.status(400).json('Unauthorized')
         }
 
-        return res.json({id: reply, token: authorization, success: 'true'})
+        return res.json({id: reply})
     })
 
     console.log('auth ok')
