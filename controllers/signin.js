@@ -68,8 +68,6 @@ const getAuthTokenId = (req, res) => {
 
         return res.json({id: reply})
     })
-
-    console.log('auth ok')
 }
 
 module.exports = {
